@@ -48,7 +48,7 @@ android {
         applicationId "com.example.carservices"
         minSdkVersion 19
         multiDexEnabled true
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

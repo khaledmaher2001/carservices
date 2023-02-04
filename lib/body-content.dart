@@ -1,24 +1,21 @@
-
-
+import 'package:carservices/notification.dart';
 import 'package:carservices/profile-item.dart';
 import 'package:carservices/services-screen.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 import 'constants.dart';
+import 'home/cubit/cubit.dart';
 
 class BodyContent extends StatelessWidget {
-  BodyContent({Key? key,}) : super(key: key);
+  BodyContent({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    var width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     switch (selectedIndexBodyContent) {
       case 0:
         return Center(
@@ -26,27 +23,34 @@ class BodyContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ServicesScreen()));
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ServicesScreen()));
                 },
                 child: Column(
                   children: [
                     Padding(
                         padding: const EdgeInsets.only(right: 10.0),
-                        child: CircleAvatar(radius: (MediaQuery.of(context).size.width*.2),
+                        child: CircleAvatar(
+                            radius: (MediaQuery.of(context).size.width * .2),
                             backgroundColor: Colors.grey.withOpacity(.6),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(18),
                               child: Image.asset(
-                                "assets/images/car-services.png", fit: BoxFit.contain,width: MediaQuery.of(context).size.width*.35,),
-                            )
-                        )
-                    ),
-                    const Text("خدمات الصيانة",style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black
-                    ),)
+                                "assets/images/car-services.png",
+                                fit: BoxFit.contain,
+                                width: MediaQuery.of(context).size.width * .35,
+                              ),
+                            ))),
+                    const Text(
+                      "خدمات الصيانة",
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    )
                   ],
                 ),
               ),
@@ -54,27 +58,35 @@ class BodyContent extends StatelessWidget {
                 height: 30,
               ),
               GestureDetector(
-                onTap: (){
-
+                onTap: () async {
+                  await AppCubit.get(context).getLocation();
+                  await AppCubit.get(context).createOrder(context,
+                      services: ["ونش انقاذ"],
+                      lat: AppCubit.get(context).locationData!.latitude!,
+                      long: AppCubit.get(context).locationData!.longitude!);
                 },
                 child: Column(
                   children: [
                     Padding(
                         padding: const EdgeInsets.only(right: 10.0),
-                        child: CircleAvatar(radius: (MediaQuery.of(context).size.width*.2),
+                        child: CircleAvatar(
+                            radius: (MediaQuery.of(context).size.width * .2),
                             backgroundColor: Colors.grey.withOpacity(.6),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(18),
                               child: Image.asset(
-                                "assets/images/winch.png", fit: BoxFit.contain,width: MediaQuery.of(context).size.width*.35,),
-                            )
-                        )
-                    ),
-                    const Text("ونش انقاذ",style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black
-                    ),)
+                                "assets/images/winch.png",
+                                fit: BoxFit.contain,
+                                width: MediaQuery.of(context).size.width * .35,
+                              ),
+                            ))),
+                    const Text(
+                      "ونش انقاذ",
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    )
                   ],
                 ),
               ),
@@ -147,6 +159,8 @@ class BodyContent extends StatelessWidget {
         );
       case 1:
         return const Profile();
+      case 2:
+        return const NotificationScreen();
       default:
         return const SizedBox();
     }

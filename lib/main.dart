@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'admin_screen.dart';
 import 'components/components.dart';
 import 'components/constant.dart';
 void main() async{
@@ -20,9 +21,7 @@ void main() async{
   CacheHelper.init();
   await DioHelper.init();
   await Firebase.initializeApp();
-    userId=FirebaseAuth.instance.currentUser!.uid??"";
   runApp(  MultiBlocProvider(
-
     providers: [
       BlocProvider(create: (BuildContext context)=>AppCubit()),
       BlocProvider(create: (BuildContext context)=>LoginCubit()),
@@ -30,8 +29,8 @@ void main() async{
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
       //
-      // home: active ? AdminLogin ?const AdminHome(): Services():const SplashScreen(),
-      home: AdminLogin ?const MainHomeScreen(): const SplashScreen(),
+      // home: AdminScreen(),
+      home: AdminLogin ?const AdminScreen(): const SplashScreen(),
       theme: ThemeData(
           primarySwatch: Colors.grey
       ),

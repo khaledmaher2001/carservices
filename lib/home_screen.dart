@@ -26,7 +26,10 @@ class _HomeScreenState extends State<MainHomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     LoginCubit.get(context).getUserData();
+    userId=FirebaseAuth.instance.currentUser!.uid;
+
 
 }
   @override

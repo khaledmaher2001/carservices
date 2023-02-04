@@ -1,4 +1,5 @@
 import 'package:carservices/profle-button.dart';
+import 'package:carservices/shared/network/local/cache_helper.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
@@ -34,7 +35,7 @@ class Profile extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text("الاسم",style: TextStyle(
+                   Text(CacheHelper.getData(key: "userName"),style: const TextStyle(
                     color: Colors.black,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
